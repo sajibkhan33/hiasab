@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     const { action, name, email, password } = body;
 
     if (!email) {
-      return NextResponse.json({ success: false, message: 'Email is required' }, { status: 400 });
+      return NextResponse.json({ success: false, message: 'Email address is required' }, { status: 400 });
     }
 
     const cleanEmail = email.toLowerCase().trim();
@@ -17,14 +17,14 @@ export async function POST(req: Request) {
     if (action === 'register') {
       let user = await UserModel.findOne({ email: cleanEmail });
       if (user) {
-        return NextResponse.json({ success: false, message: 'এই ইমেইল দিয়ে ইতোমধ্যে একাউন্ট খোলা আছে' }, { status: 400 });
+        return NextResponse.json({ success: false, message: 'An account with this email already exists' }, { status: 400 });
       }
 
       user = await UserModel.create({
-        name: name ? name.trim() : 'ব্যবহারকারী',
+        name: name ? name.trim() : 'Eng: Sajib Khan',
         email: cleanEmail,
         password: password || '',
-        currency: '৳',
+        currency: '$',
       });
 
       return NextResponse.json({
@@ -37,15 +37,13 @@ export async function POST(req: Request) {
         },
       });
     } else {
-      // Login or auto create demo user
       let user = await UserModel.findOne({ email: cleanEmail });
       if (!user) {
-        // If not found, create seamless user
         user = await UserModel.create({
-          name: name ? name.trim() : cleanEmail.split('@')[0] || 'ব্যবহারকারী',
+          name: name ? name.trim() : (cleanEmail === 'sajib3323khan@gmail.com' ? 'Eng: Sajib Khan' : (cleanEmail.split('@')[0] || 'User')),
           email: cleanEmail,
           password: password || '',
-          currency: '৳',
+          currency: '$',
         });
       }
 
@@ -62,7 +60,7 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error('Auth API Error:', error);
     return NextResponse.json(
-      { success: false, message: error.message || 'সার্ভার এরর হয়েছে' },
+      { success: false, message: error.message || 'Authentication error occurred' },
       { status: 500 }
     );
   }

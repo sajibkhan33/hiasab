@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "দৈনিক হিসাব - সহজ আয় ও ব্যয় ট্র্যাকার | Doinik Hisab",
-  description: "প্রতিদিনের আয় ও খরচের হিসাব রাখার সবচেয়ে সহজ ও নির্ভরযোগ্য সমাধান।",
+  title: "Daily Tracker - Income & Expense Management System",
+  description: "Smart and effortless daily income and expense tracking system. Power and developed by Eng: Sajib Khan.",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="bn"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-800 selection:bg-emerald-500 selection:text-white">

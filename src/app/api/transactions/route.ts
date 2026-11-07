@@ -20,7 +20,7 @@ export async function GET(req: Request) {
       type: t.type,
       amount: t.amount,
       category: t.category,
-      categoryBn: t.categoryBn,
+      categoryName: t.categoryName || t.category,
       description: t.description,
       paymentMethod: t.paymentMethod,
       date: t.date,
@@ -32,7 +32,7 @@ export async function GET(req: Request) {
   } catch (error: any) {
     console.error('Fetch Transactions Error:', error);
     return NextResponse.json(
-      { success: false, message: error.message || 'ডাটাবেজ থেকে তথ্য আনা যায়নি' },
+      { success: false, message: error.message || 'Failed to retrieve transactions from database' },
       { status: 500 }
     );
   }
@@ -43,10 +43,10 @@ export async function POST(req: Request) {
     await connectToDatabase();
     const body = await req.json();
 
-    const { userId, type, amount, category, categoryBn, description, paymentMethod, date, time } = body;
+    const { userId, type, amount, category, categoryName, description, paymentMethod, date, time } = body;
 
     if (!userId || !type || !amount || !category || !date) {
-      return NextResponse.json({ success: false, message: 'প্রয়োজনীয় ফিল্ড পূরণ করুন' }, { status: 400 });
+      return NextResponse.json({ success: false, message: 'Required transaction fields are missing' }, { status: 400 });
     }
 
     const newTx = await TransactionModel.create({
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
       type,
       amount: Number(amount),
       category,
-      categoryBn: categoryBn || '',
+      categoryName: categoryName || '',
       description: description || '',
       paymentMethod: paymentMethod || 'cash',
       date,
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
         type: newTx.type,
         amount: newTx.amount,
         category: newTx.category,
-        categoryBn: newTx.categoryBn,
+        categoryName: newTx.categoryName,
         description: newTx.description,
         paymentMethod: newTx.paymentMethod,
         date: newTx.date,
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error('Create Transaction Error:', error);
     return NextResponse.json(
-      { success: false, message: error.message || 'লেনদেন সংরক্ষণ করা যায়নি' },
+      { success: false, message: error.message || 'Failed to save transaction' },
       { status: 500 }
     );
   }
@@ -98,7 +98,7 @@ export async function PUT(req: Request) {
 
     const updated = await TransactionModel.findByIdAndUpdate(id, updates, { new: true });
     if (!updated) {
-      return NextResponse.json({ success: false, message: 'লেনদেন খুঁজে পাওয়া যায়নি' }, { status: 404 });
+      return NextResponse.json({ success: false, message: 'Transaction not found' }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -109,7 +109,7 @@ export async function PUT(req: Request) {
         type: updated.type,
         amount: updated.amount,
         category: updated.category,
-        categoryBn: updated.categoryBn,
+        categoryName: updated.categoryName,
         description: updated.description,
         paymentMethod: updated.paymentMethod,
         date: updated.date,
@@ -120,7 +120,7 @@ export async function PUT(req: Request) {
   } catch (error: any) {
     console.error('Update Transaction Error:', error);
     return NextResponse.json(
-      { success: false, message: error.message || 'লেনদেন আপডেট করা যায়নি' },
+      { success: false, message: error.message || 'Failed to update transaction' },
       { status: 500 }
     );
   }
@@ -138,11 +138,11 @@ export async function DELETE(req: Request) {
 
     await TransactionModel.findByIdAndDelete(id);
 
-    return NextResponse.json({ success: true, message: 'লেনদেন মুছে ফেলা হয়েছে' });
+    return NextResponse.json({ success: true, message: 'Transaction deleted successfully' });
   } catch (error: any) {
     console.error('Delete Transaction Error:', error);
     return NextResponse.json(
-      { success: false, message: error.message || 'লেনদেন মুছে ফেলা যায়নি' },
+      { success: false, message: error.message || 'Failed to delete transaction' },
       { status: 500 }
     );
   }

@@ -14,10 +14,10 @@ interface AuthContextType {
 }
 
 const DEFAULT_DEMO_USER: User = {
-  id: 'demo-user-id',
-  name: 'সাকিব আহমেদ',
-  email: 'sakib@example.com',
-  currency: '৳',
+  id: 'demo-user-sajib',
+  name: 'Eng: Sajib Khan',
+  email: 'sajib3323khan@gmail.com',
+  currency: '$',
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,14 +28,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     try {
-      const savedUser = localStorage.getItem('doinik_hisab_user');
+      const savedUser = localStorage.getItem('daily_expense_user');
       if (savedUser) {
         setUser(JSON.parse(savedUser));
       } else {
-        const hasLoggedOut = localStorage.getItem('doinik_hisab_has_logged_out');
+        const hasLoggedOut = localStorage.getItem('daily_expense_has_logged_out');
         if (!hasLoggedOut) {
           setUser(DEFAULT_DEMO_USER);
-          localStorage.setItem('doinik_hisab_user', JSON.stringify(DEFAULT_DEMO_USER));
+          localStorage.setItem('daily_expense_user', JSON.stringify(DEFAULT_DEMO_USER));
         }
       }
     } catch (e) {
@@ -56,25 +56,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const data = await res.json();
       if (data.success && data.user) {
         setUser(data.user);
-        localStorage.setItem('doinik_hisab_user', JSON.stringify(data.user));
-        localStorage.removeItem('doinik_hisab_has_logged_out');
+        localStorage.setItem('daily_expense_user', JSON.stringify(data.user));
+        localStorage.removeItem('daily_expense_has_logged_out');
         setIsLoading(false);
         return true;
       }
     } catch (err) {
-      console.warn('API login failed, falling back to local session:', err);
+      console.warn('API login failed, using local session:', err);
     }
 
-    // Fallback local
     const fallbackUser: User = {
       id: `user-${Date.now()}`,
-      name: email.split('@')[0] || 'ব্যবহারকারী',
+      name: email === 'sajib3323khan@gmail.com' ? 'Eng: Sajib Khan' : (email.split('@')[0] || 'User'),
       email,
-      currency: '৳',
+      currency: '$',
     };
     setUser(fallbackUser);
-    localStorage.setItem('doinik_hisab_user', JSON.stringify(fallbackUser));
-    localStorage.removeItem('doinik_hisab_has_logged_out');
+    localStorage.setItem('daily_expense_user', JSON.stringify(fallbackUser));
+    localStorage.removeItem('daily_expense_has_logged_out');
     setIsLoading(false);
     return true;
   };
@@ -90,38 +89,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const data = await res.json();
       if (data.success && data.user) {
         setUser(data.user);
-        localStorage.setItem('doinik_hisab_user', JSON.stringify(data.user));
-        localStorage.removeItem('doinik_hisab_has_logged_out');
+        localStorage.setItem('daily_expense_user', JSON.stringify(data.user));
+        localStorage.removeItem('daily_expense_has_logged_out');
         setIsLoading(false);
         return true;
       }
     } catch (err) {
-      console.warn('API register failed, falling back to local session:', err);
+      console.warn('API register failed, using local session:', err);
     }
 
     const newUser: User = {
       id: `user-${Date.now()}`,
-      name: name.trim() || 'ব্যবহারকারী',
+      name: name.trim() || 'Eng: Sajib Khan',
       email: email.trim(),
-      currency: '৳',
+      currency: '$',
     };
     setUser(newUser);
-    localStorage.setItem('doinik_hisab_user', JSON.stringify(newUser));
-    localStorage.removeItem('doinik_hisab_has_logged_out');
+    localStorage.setItem('daily_expense_user', JSON.stringify(newUser));
+    localStorage.removeItem('daily_expense_has_logged_out');
     setIsLoading(false);
     return true;
   };
 
   const guestLogin = () => {
     setUser(DEFAULT_DEMO_USER);
-    localStorage.setItem('doinik_hisab_user', JSON.stringify(DEFAULT_DEMO_USER));
-    localStorage.removeItem('doinik_hisab_has_logged_out');
+    localStorage.setItem('daily_expense_user', JSON.stringify(DEFAULT_DEMO_USER));
+    localStorage.removeItem('daily_expense_has_logged_out');
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('doinik_hisab_user');
-    localStorage.setItem('doinik_hisab_has_logged_out', 'true');
+    localStorage.removeItem('daily_expense_user');
+    localStorage.setItem('daily_expense_has_logged_out', 'true');
   };
 
   return (

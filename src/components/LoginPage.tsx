@@ -5,14 +5,13 @@ import { useAuth } from '@/context/AuthContext';
 import { 
   Wallet, 
   ArrowRight, 
-  Sparkles, 
   CheckCircle2, 
   ShieldCheck, 
-  Smartphone, 
   Lock, 
   Mail, 
   User as UserIcon,
-  Zap
+  Zap,
+  Phone
 } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
@@ -30,27 +29,27 @@ export const LoginPage: React.FC = () => {
 
     if (isRegister) {
       if (!name.trim()) {
-        setError('অনুগ্রহ করে আপনার নাম লিখুন');
+        setError('Please enter your full name');
         return;
       }
       if (!email.trim() || !email.includes('@')) {
-        setError('সঠিক ইমেইল এড্রেস লিখুন');
+        setError('Please enter a valid email address');
         return;
       }
       try {
         await register(name, email, password);
       } catch (err) {
-        setError('রেজিস্ট্রেশন করতে সমস্যা হয়েছে');
+        setError('Registration failed. Please try again.');
       }
     } else {
       if (!email.trim()) {
-        setError('ইমেইল বা ইউজারনেম লিখুন');
+        setError('Please enter your email or username');
         return;
       }
       try {
         await login(email, password);
       } catch (err) {
-        setError('লগইন করতে সমস্যা হয়েছে');
+        setError('Sign in failed. Please try again.');
       }
     }
   };
@@ -72,10 +71,10 @@ export const LoginPage: React.FC = () => {
             <Wallet className="w-8 h-8" />
           </div>
           <h1 className="text-3xl font-black text-white tracking-tight">
-            দৈনিক হিসাব
+            Daily Tracker
           </h1>
           <p className="mt-1 text-sm text-emerald-400 font-medium">
-            Doinik Hisab • সবচেয়ে সহজ আয়-ব্যয় ট্র্যাকার
+            Smart & Easy Income and Expense Tracking System
           </p>
         </div>
 
@@ -86,8 +85,8 @@ export const LoginPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <Zap className="w-5 h-5 text-emerald-600 shrink-0" />
               <div>
-                <p className="text-xs font-bold text-emerald-900">দ্রুত ট্রায়াল দেখতে চান?</p>
-                <p className="text-[11px] text-emerald-700">১-ক্লিকেই ডেমো একাউন্টে প্রবেশ করুন</p>
+                <p className="text-xs font-bold text-emerald-900">Want instant access?</p>
+                <p className="text-[11px] text-emerald-700">1-Click Quick Demo Sign In</p>
               </div>
             </div>
             <button
@@ -95,7 +94,7 @@ export const LoginPage: React.FC = () => {
               onClick={handleDemoLogin}
               className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition active:scale-95 shrink-0"
             >
-              ডেমো লগইন
+              Demo Login
             </button>
           </div>
 
@@ -113,7 +112,7 @@ export const LoginPage: React.FC = () => {
                   : 'border-transparent text-slate-400 hover:text-slate-600'
               }`}
             >
-              লগইন (Sign In)
+              Sign In
             </button>
             <button
               type="button"
@@ -127,7 +126,7 @@ export const LoginPage: React.FC = () => {
                   : 'border-transparent text-slate-400 hover:text-slate-600'
               }`}
             >
-              নতুন একাউন্ট (Register)
+              Create Account
             </button>
           </div>
 
@@ -141,17 +140,17 @@ export const LoginPage: React.FC = () => {
             {isRegister && (
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                  আপনার পূর্ণ নাম (Full Name)
+                  Full Name
                 </label>
                 <div className="relative">
                   <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     required={isRegister}
-                    placeholder="যেমন: সাকিব আহমেদ"
+                    placeholder="Eng: Sajib Khan"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-hidden transition"
+                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-hidden transition placeholder:text-slate-400"
                   />
                 </div>
               </div>
@@ -159,24 +158,24 @@ export const LoginPage: React.FC = () => {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                ইমেইল এড্রেস (Email)
+                Email Address
               </label>
               <div className="relative">
                 <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="email"
                   required
-                  placeholder="name@example.com"
+                  placeholder="sajib3323khan@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-hidden transition"
+                  className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-hidden transition placeholder:text-slate-400"
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                পাসওয়ার্ড (Password)
+                Password
               </label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -196,10 +195,10 @@ export const LoginPage: React.FC = () => {
               className="w-full mt-2 py-3 px-4 rounded-xl text-sm font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg shadow-emerald-600/30 transition transform active:scale-98 flex items-center justify-center gap-2"
             >
               {isLoading ? (
-                <span>অপেক্ষা করুন...</span>
+                <span>Loading...</span>
               ) : (
                 <>
-                  <span>{isRegister ? 'একাউন্ট খুলুন' : 'লগইন করুন'}</span>
+                  <span>{isRegister ? 'Register Account' : 'Sign In'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
@@ -210,15 +209,32 @@ export const LoginPage: React.FC = () => {
           <div className="mt-6 pt-5 border-t border-slate-100 space-y-2">
             <div className="flex items-center gap-2 text-[11px] text-slate-600">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>প্রতিদিনের আয় ও খরচের নির্ভুল হিসাব</span>
+              <span>Precise daily income and expense tracking</span>
             </div>
             <div className="flex items-center gap-2 text-[11px] text-slate-600">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>মোবাইল ও পিসি সব ডিভাইসে সহজে ব্যবহারযোগ্য</span>
+              <span>Mobile & Desktop responsive dashboard</span>
             </div>
             <div className="flex items-center gap-2 text-[11px] text-slate-600">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>১০০% নিরাপদ ও লোকাল স্টোরেজ ব্যাকআপ</span>
+              <span>Cloud MongoDB Atlas synchronization & offline storage</span>
+            </div>
+          </div>
+
+          {/* Developer Contact Badge */}
+          <div className="mt-6 pt-4 border-t border-slate-100 text-center text-[11px] text-slate-500 space-y-1">
+            <p className="font-semibold text-slate-700">
+              Powered and Developed by Eng: Sajib Khan
+            </p>
+            <div className="flex items-center justify-center gap-3 text-[10px] text-slate-500">
+              <span className="flex items-center gap-1">
+                <Mail className="w-3 h-3 text-emerald-600" />
+                sajib3323khan@gmail.com
+              </span>
+              <span className="flex items-center gap-1">
+                <Phone className="w-3 h-3 text-emerald-600" />
+                01730295393
+              </span>
             </div>
           </div>
         </div>

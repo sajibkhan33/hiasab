@@ -5,7 +5,6 @@ export type PaymentMethod = 'cash' | 'bkash' | 'nagad' | 'bank' | 'rocket' | 'ot
 export interface Category {
   id: string;
   name: string;
-  nameBn: string;
   type: TransactionType;
   icon: string;
   color: string;
@@ -17,7 +16,7 @@ export interface Transaction {
   type: TransactionType;
   amount: number;
   category: string;
-  categoryBn?: string;
+  categoryName?: string;
   description: string;
   paymentMethod: PaymentMethod;
   date: string; // YYYY-MM-DD

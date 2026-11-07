@@ -5,7 +5,7 @@ export interface ITransaction extends Document {
   type: 'income' | 'expense';
   amount: number;
   category: string;
-  categoryBn?: string;
+  categoryName?: string;
   description: string;
   paymentMethod: string;
   date: string;
@@ -19,7 +19,7 @@ const TransactionSchema = new Schema<ITransaction>(
     type: { type: String, enum: ['income', 'expense'], required: true },
     amount: { type: Number, required: true },
     category: { type: String, required: true },
-    categoryBn: { type: String, default: '' },
+    categoryName: { type: String, default: '' },
     description: { type: String, default: '' },
     paymentMethod: { type: String, default: 'cash' },
     date: { type: String, required: true, index: true },

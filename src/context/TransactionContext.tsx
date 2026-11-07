@@ -47,7 +47,7 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [currentDate, setCurrentDate] = useState<string>('');
 
   const storageKey = useMemo(() => {
-    return user ? `doinik_hisab_tx_${user.id}` : 'doinik_hisab_tx_guest';
+    return user ? `daily_hisab_tx_${user.id}` : 'daily_hisab_tx_guest';
   }, [user]);
 
   useEffect(() => {
@@ -77,7 +77,6 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
           setTransactions(data.transactions);
           localStorage.setItem(storageKey, JSON.stringify(data.transactions));
         } else if (localData.length === 0) {
-          // No transactions in DB and no local data, seed sample
           const samples = getSampleTransactions(userId);
           setTransactions(samples);
           localStorage.setItem(storageKey, JSON.stringify(samples));
@@ -100,7 +99,6 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
     fetchTransactions();
   }, [fetchTransactions]);
 
-  // Keep localStorage updated
   useEffect(() => {
     if (!isLoaded || typeof window === 'undefined') return;
     try {
@@ -124,10 +122,8 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       time: data.time || new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
     };
 
-    // Instant optimistic update
     setTransactions((prev) => [optimisticTx, ...prev]);
 
-    // Send to MongoDB Atlas API
     try {
       const res = await fetch('/api/transactions', {
         method: 'POST',
@@ -136,13 +132,12 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       });
       const resData = await res.json();
       if (resData.success && resData.transaction) {
-        // Replace tempId with MongoDB _id
         setTransactions((prev) =>
           prev.map((t) => (t.id === tempId ? resData.transaction : t))
         );
       }
     } catch (err) {
-      console.warn('MongoDB sync failed, stored in localStorage:', err);
+      console.warn('MongoDB sync failed, saved in local storage:', err);
     }
   };
 
@@ -183,7 +178,6 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
     setTransactions([]);
   };
 
-  // Filtered transactions calculation
   const filteredTransactions = useMemo(() => {
     const todayStr = currentDate;
     const currentYearMonth = todayStr ? todayStr.substring(0, 7) : '';
@@ -200,10 +194,10 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       if (filterOptions.search.trim()) {
         const query = filterOptions.search.toLowerCase().trim();
         const desc = (tx.description || '').toLowerCase();
-        const catBn = (tx.categoryBn || '').toLowerCase();
+        const catName = (tx.categoryName || '').toLowerCase();
         const cat = (tx.category || '').toLowerCase();
         const amt = tx.amount.toString();
-        if (!desc.includes(query) && !catBn.includes(query) && !cat.includes(query) && !amt.includes(query)) {
+        if (!desc.includes(query) && !catName.includes(query) && !cat.includes(query) && !amt.includes(query)) {
           return false;
         }
       }
@@ -279,16 +273,16 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const exportToCSV = () => {
     if (transactions.length === 0) {
-      alert('এক্সপোর্ট করার মতো কোনো লেনদেন নেই');
+      alert('No transactions to export');
       return;
     }
 
-    const headers = ['তারিখ (Date)', 'সময় (Time)', 'ধরন (Type)', 'খাত (Category)', 'বিবরণ (Description)', 'পেমেন্ট মাধ্যম (Payment)', 'পরিমাণ (Amount)'];
+    const headers = ['Date', 'Time', 'Type', 'Category', 'Description', 'Payment Method', 'Amount'];
     const rows = transactions.map((tx) => [
       tx.date,
       tx.time || '',
-      tx.type === 'income' ? 'আয় (Income)' : 'খরচ (Expense)',
-      tx.categoryBn || tx.category,
+      tx.type === 'income' ? 'Income' : 'Expense',
+      tx.categoryName || tx.category,
       `"${(tx.description || '').replace(/"/g, '""')}"`,
       tx.paymentMethod,
       tx.amount,
@@ -298,7 +292,7 @@ export const TransactionProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Doinik_Hisab_${currentDate || 'export'}.csv`);
+    link.setAttribute('download', `Daily_Tracker_${currentDate || 'export'}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -1,39 +1,48 @@
-# hiasab - দৈনিক হিসাব (Doinik Hisab)
+# hiasab - Daily Tracker
 
-সহজ ও নির্ভরযোগ্য দৈনিক আয় ও ব্যয়ের হিসাব রাখার ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন।
+A modern, full-stack Daily Income & Expense Tracking Web Application built with Next.js, Tailwind CSS, TypeScript, and MongoDB Atlas.
 
-## 🌟 সুবিধাসমূহ (Features)
-- 🔐 **ইউজার লগইন ও রেজিস্ট্রেশন:** একাধিক ইউজার সাপোর্ট এবং তাৎক্ষণিক ডেমো লগইন সুবিধা।
-- 💰 **সহজ আয় ও ব্যয় ট্র্যাকিং:** খাবার, বাজার, যাতায়াত, চা-নাস্তা, মোবাইল রিচার্জ, বেতন ইত্যাদিতে কত খরচ ও আয় হলো সহজে এন্ট্রি করা।
-- ⚡ **১-ক্লিক কুইক এন্ট্রি:** নিয়মিত খরচের জন্য ১-ক্লিকেই হিসাব যোগ করা।
-- 📊 **কোথায় কত খরচ হয়েছে লাইভ রিপোর্ট:** ক্যাটাগরিভিত্তিক রঙিন প্রগ্রেস বার ও শতাংশ বিশ্লেষণ।
-- 🔍 **ফিল্টার ও সার্চ:** আজ, গতকাল, ৭ দিন, চলতি মাস এবং বিবরণ অনুযায়ী যেকোনো হিসাব দ্রুত খোঁজা।
-- 📥 **CSV / Excel ডাউনলোড:** সম্পূর্ণ হিসাব এক ক্লিকেই এক্সপোর্ট করার সুবিধা।
-- 🍃 **MongoDB Atlas ক্লাউড ডেটাবেস:** ডেটা ক্লাউডে সুরক্ষিতভাবে সংরক্ষিত থাকে।
+## 🌟 Key Features
+- 🔐 **Authentication:** Multi-user support with seamless registration, email/password login, and 1-click Demo Sign In.
+- 💰 **Effortless Income & Expense Tracking:** Track daily expenses (Food, Groceries, Commute, Utilities, Shopping, Healthcare) and income (Salary, Freelance, Business, Consulting).
+- ⚡ **1-Click Quick Presets:** Fast recording for routine daily expenses in a single click.
+- 📊 **Spending Distribution & Analytics:** Real-time visual progress bars and percentage distribution by category.
+- 🔍 **Filtering & Search:** Real-time search by notes, category, or amount; filter by Today, Yesterday, Last 7 Days, or This Month.
+- 📥 **CSV / Excel Export:** Instant one-click data export for accounting and reports.
+- 🍃 **MongoDB Atlas Cloud Database:** Persistent, secured cloud synchronization with resilient offline cache.
 
-## 🛠️ টেকনোলজি (Tech Stack)
+## 🛠️ Tech Stack
 - **Framework:** Next.js (App Router, Turbopack)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **Database:** MongoDB Atlas (Mongoose)
+- **Database:** MongoDB Atlas (Mongoose ODM)
 - **Icons:** Lucide React
 
-## 🚀 শুরু করার নিয়ম (Setup)
-1. রিপোজিটরি ক্লোন করুন:
+## 🚀 Getting Started
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/sajibkhan33/hiasab.git
    cd hiasab
    ```
-2. ডিপেন্ডেন্সি ইনস্টল করুন:
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. `.env.local` ফাইলে MongoDB URI দিন:
+3. Set up environment variables in `.env.local`:
    ```env
    MONGODB_URI=your_mongodb_connection_string
    ```
-4. ডেভেলপমেন্ট সার্ভার চালু করুন:
+4. Run the development server:
    ```bash
    npm run dev
    ```
-   ব্রাউজারে খুলুন: `http://localhost:3000`
+   Open `http://localhost:3000` in your browser.
+
+---
+
+### 👨‍💻 Developer & Attribution
+- **Power and Developed by:** Eng: Sajib Khan
+- **Email:** sajib3323khan@gmail.com
+- **Contact:** 01730295393
+- **GitHub Repository:** [https://github.com/sajibkhan33/hiasab.git](https://github.com/sajibkhan33/hiasab.git)

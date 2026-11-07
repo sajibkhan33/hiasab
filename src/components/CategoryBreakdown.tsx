@@ -3,17 +3,16 @@
 import React, { useMemo } from 'react';
 import { useTransactions } from '@/context/TransactionContext';
 import { DEFAULT_CATEGORIES } from '@/data/categories';
-import { PieChart, TrendingDown, ArrowRight } from 'lucide-react';
+import { PieChart } from 'lucide-react';
 
 export const CategoryBreakdown: React.FC = () => {
   const { filteredTransactions } = useTransactions();
 
-  // Aggregate expenses by category
   const breakdown = useMemo(() => {
     const expenseTx = filteredTransactions.filter((tx) => tx.type === 'expense');
     const totalExp = expenseTx.reduce((sum, tx) => sum + tx.amount, 0);
 
-    const map: Record<string, { amount: number; nameBn: string; count: number }> = {};
+    const map: Record<string, { amount: number; name: string; count: number }> = {};
 
     for (const tx of expenseTx) {
       const catKey = tx.category;
@@ -21,7 +20,7 @@ export const CategoryBreakdown: React.FC = () => {
         const found = DEFAULT_CATEGORIES.find((c) => c.id === catKey);
         map[catKey] = {
           amount: 0,
-          nameBn: tx.categoryBn || found?.nameBn || catKey,
+          name: tx.categoryName || found?.name || catKey,
           count: 0,
         };
       }
@@ -31,13 +30,12 @@ export const CategoryBreakdown: React.FC = () => {
 
     const items = Object.entries(map).map(([id, val]) => ({
       id,
-      nameBn: val.nameBn,
+      name: val.name,
       amount: val.amount,
       count: val.count,
       percentage: totalExp > 0 ? Math.round((val.amount / totalExp) * 100) : 0,
     }));
 
-    // Sort descending by amount
     items.sort((a, b) => b.amount - a.amount);
     return { items, totalExp };
   }, [filteredTransactions]);
@@ -62,19 +60,19 @@ export const CategoryBreakdown: React.FC = () => {
           </div>
           <div>
             <h4 className="font-bold text-sm sm:text-base text-slate-900">
-              কোথায় কত খরচ হয়েছে?
+              Spending Breakdown
             </h4>
-            <p className="text-[11px] text-slate-500">খাতভিত্তিক ব্যয়ের অনুপাত</p>
+            <p className="text-[11px] text-slate-500">Expense distribution by category</p>
           </div>
         </div>
         <span className="text-xs font-bold text-rose-600 px-2.5 py-1 bg-rose-50 rounded-full">
-          মোট: ৳{breakdown.totalExp.toLocaleString('bn-BD')}
+          Total: ${breakdown.totalExp.toLocaleString('en-US')}
         </span>
       </div>
 
       {breakdown.items.length === 0 ? (
         <div className="py-8 text-center text-xs text-slate-400">
-          বর্তমান ফিল্টারে কোনো ব্যয়ের রেকর্ড নেই
+          No expense records for selected filters
         </div>
       ) : (
         <div className="space-y-3.5">
@@ -86,14 +84,14 @@ export const CategoryBreakdown: React.FC = () => {
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2 font-medium text-slate-800">
                     <span className={`w-2.5 h-2.5 rounded-full ${colorClass}`} />
-                    <span className="truncate">{item.nameBn}</span>
+                    <span className="truncate">{item.name}</span>
                     <span className="text-[10px] text-slate-400 font-normal">
-                      ({item.count} বার)
+                      ({item.count} {item.count === 1 ? 'time' : 'times'})
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-900">
-                      ৳{item.amount.toLocaleString('bn-BD')}
+                      ${item.amount.toLocaleString('en-US')}
                     </span>
                     <span className="text-[10px] font-semibold text-slate-400 w-8 text-right">
                       {item.percentage}%
@@ -101,7 +99,6 @@ export const CategoryBreakdown: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Progress bar */}
                 <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
                   <div
                     className={`h-full rounded-full ${colorClass} transition-all duration-500`}
