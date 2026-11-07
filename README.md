@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# hiasab - দৈনিক হিসাব (Doinik Hisab)
 
-## Getting Started
+সহজ ও নির্ভরযোগ্য দৈনিক আয় ও ব্যয়ের হিসাব রাখার ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন।
 
-First, run the development server:
+## 🌟 সুবিধাসমূহ (Features)
+- 🔐 **ইউজার লগইন ও রেজিস্ট্রেশন:** একাধিক ইউজার সাপোর্ট এবং তাৎক্ষণিক ডেমো লগইন সুবিধা।
+- 💰 **সহজ আয় ও ব্যয় ট্র্যাকিং:** খাবার, বাজার, যাতায়াত, চা-নাস্তা, মোবাইল রিচার্জ, বেতন ইত্যাদিতে কত খরচ ও আয় হলো সহজে এন্ট্রি করা।
+- ⚡ **১-ক্লিক কুইক এন্ট্রি:** নিয়মিত খরচের জন্য ১-ক্লিকেই হিসাব যোগ করা।
+- 📊 **কোথায় কত খরচ হয়েছে লাইভ রিপোর্ট:** ক্যাটাগরিভিত্তিক রঙিন প্রগ্রেস বার ও শতাংশ বিশ্লেষণ।
+- 🔍 **ফিল্টার ও সার্চ:** আজ, গতকাল, ৭ দিন, চলতি মাস এবং বিবরণ অনুযায়ী যেকোনো হিসাব দ্রুত খোঁজা।
+- 📥 **CSV / Excel ডাউনলোড:** সম্পূর্ণ হিসাব এক ক্লিকেই এক্সপোর্ট করার সুবিধা।
+- 🍃 **MongoDB Atlas ক্লাউড ডেটাবেস:** ডেটা ক্লাউডে সুরক্ষিতভাবে সংরক্ষিত থাকে।
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ টেকনোলজি (Tech Stack)
+- **Framework:** Next.js (App Router, Turbopack)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Database:** MongoDB Atlas (Mongoose)
+- **Icons:** Lucide React
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 শুরু করার নিয়ম (Setup)
+1. রিপোজিটরি ক্লোন করুন:
+   ```bash
+   git clone https://github.com/sajibkhan33/hiasab.git
+   cd hiasab
+   ```
+2. ডিপেন্ডেন্সি ইনস্টল করুন:
+   ```bash
+   npm install
+   ```
+3. `.env.local` ফাইলে MongoDB URI দিন:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   ```
+4. ডেভেলপমেন্ট সার্ভার চালু করুন:
+   ```bash
+   npm run dev
+   ```
+   ব্রাউজারে খুলুন: `http://localhost:3000`

@@ -1,0 +1,152 @@
+import { Category } from '@/types';
+
+export const DEFAULT_CATEGORIES: Category[] = [
+  // Expense Categories
+  {
+    id: 'food',
+    name: 'Food & Snacks',
+    nameBn: 'খাবার ও নাস্তা',
+    type: 'expense',
+    icon: 'Utensils',
+    color: 'bg-amber-500 text-amber-500',
+  },
+  {
+    id: 'grocery',
+    name: 'Groceries / Bazar',
+    nameBn: 'বাজার সদাই ও মুদি',
+    type: 'expense',
+    icon: 'ShoppingBag',
+    color: 'bg-emerald-500 text-emerald-500',
+  },
+  {
+    id: 'transport',
+    name: 'Transport & Fare',
+    nameBn: 'যাতায়াত ও গাড়ি ভাড়া',
+    type: 'expense',
+    icon: 'Car',
+    color: 'bg-blue-500 text-blue-500',
+  },
+  {
+    id: 'tea',
+    name: 'Tea & Hangout',
+    nameBn: 'চা-নাস্তা ও আড্ডা',
+    type: 'expense',
+    icon: 'Coffee',
+    color: 'bg-orange-500 text-orange-500',
+  },
+  {
+    id: 'recharge',
+    name: 'Mobile & Internet',
+    nameBn: 'মোবাইল রিচার্জ ও নেট বিল',
+    type: 'expense',
+    icon: 'Smartphone',
+    color: 'bg-purple-500 text-purple-500',
+  },
+  {
+    id: 'rent_bills',
+    name: 'Rent & Utility Bills',
+    nameBn: 'বাসা ভাড়া ও বিল',
+    type: 'expense',
+    icon: 'Home',
+    color: 'bg-rose-500 text-rose-500',
+  },
+  {
+    id: 'medical',
+    name: 'Medicine & Health',
+    nameBn: 'ওষুধ ও চিকিৎসা',
+    type: 'expense',
+    icon: 'HeartPulse',
+    color: 'bg-red-500 text-red-500',
+  },
+  {
+    id: 'shopping',
+    name: 'Shopping & Clothes',
+    nameBn: 'কেনাকাটা ও পোশাক',
+    type: 'expense',
+    icon: 'Shirt',
+    color: 'bg-indigo-500 text-indigo-500',
+  },
+  {
+    id: 'family',
+    name: 'Family & Kids',
+    nameBn: 'পরিবার ও সন্তান',
+    type: 'expense',
+    icon: 'Users',
+    color: 'bg-pink-500 text-pink-500',
+  },
+  {
+    id: 'other_expense',
+    name: 'Other Expense',
+    nameBn: 'অন্যান্য খরচ',
+    type: 'expense',
+    icon: 'MoreHorizontal',
+    color: 'bg-slate-500 text-slate-500',
+  },
+
+  // Income Categories
+  {
+    id: 'salary',
+    name: 'Salary',
+    nameBn: 'মাসিক বেতন',
+    type: 'income',
+    icon: 'Briefcase',
+    color: 'bg-green-600 text-green-600',
+  },
+  {
+    id: 'business',
+    name: 'Business / Sales',
+    nameBn: 'ব্যবসা ও বিক্রয়',
+    type: 'income',
+    icon: 'Store',
+    color: 'bg-teal-600 text-teal-600',
+  },
+  {
+    id: 'freelance',
+    name: 'Freelancing / Project',
+    nameBn: 'ফ্রিল্যান্সিং ও কাজ',
+    type: 'income',
+    icon: 'Laptop',
+    color: 'bg-cyan-600 text-cyan-600',
+  },
+  {
+    id: 'tuition',
+    name: 'Tuition / Teaching',
+    nameBn: 'টিউশনি / পড়ানো',
+    type: 'income',
+    icon: 'GraduationCap',
+    color: 'bg-violet-600 text-violet-600',
+  },
+  {
+    id: 'gift',
+    name: 'Gift / Bonus',
+    nameBn: 'উপহার ও বোনাস',
+    type: 'income',
+    icon: 'Gift',
+    color: 'bg-yellow-500 text-yellow-500',
+  },
+  {
+    id: 'other_income',
+    name: 'Other Income',
+    nameBn: 'অন্যান্য আয়',
+    type: 'income',
+    icon: 'Coins',
+    color: 'bg-emerald-600 text-emerald-600',
+  },
+];
+
+export const PAYMENT_METHODS = [
+  { id: 'cash', label: 'নগদ (Cash)', icon: 'Banknote', color: 'bg-green-100 text-green-700 border-green-300' },
+  { id: 'bkash', label: 'বিকাশ (bKash)', icon: 'Smartphone', color: 'bg-pink-100 text-pink-700 border-pink-300' },
+  { id: 'nagad', label: 'নগদ (Nagad)', icon: 'Flame', color: 'bg-orange-100 text-orange-700 border-orange-300' },
+  { id: 'bank', label: 'ব্যাংক একাউন্ট (Bank)', icon: 'Landmark', color: 'bg-blue-100 text-blue-700 border-blue-300' },
+  { id: 'rocket', label: 'রকেট (Rocket)', icon: 'Rocket', color: 'bg-purple-100 text-purple-700 border-purple-300' },
+  { id: 'other', label: 'অন্যান্য (Other)', icon: 'CreditCard', color: 'bg-gray-100 text-gray-700 border-gray-300' },
+];
+
+export const QUICK_EXPENSE_PRESETS = [
+  { label: 'চা ও বিস্কুট', category: 'tea', amount: 30 },
+  { label: 'দুপুরের খাবার', category: 'food', amount: 150 },
+  { label: 'রিকশা / অটো ভাড়া', category: 'transport', amount: 60 },
+  { label: 'বাজার সদাই', category: 'grocery', amount: 650 },
+  { label: 'মোবাইল রিচার্জ', category: 'recharge', amount: 100 },
+];
